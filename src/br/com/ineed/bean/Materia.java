@@ -1,10 +1,11 @@
 package br.com.ineed.bean;
+import br.com.ineed.bean.Turma;
 
 public class Materia {
 
 	private Integer id;
 	private String descricao;
-	private Integer turma_id;
+	private Turma turma_id;
 	
 	
 	
@@ -20,10 +21,10 @@ public class Materia {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Integer getTurmaId() {
+	public Turma getTurmaId() {
 		return turma_id;
 	}
-	public void setTurmaId(Integer turma_id) {
+	public void setTurmaId(Turma turma_id) {
 		this.turma_id = turma_id;
 	}
 	
