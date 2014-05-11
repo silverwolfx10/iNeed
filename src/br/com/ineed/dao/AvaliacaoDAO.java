@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-import br.com.ineed.bean.Turma;
 import br.com.ineed.factory.ConnectionFactory;
+import br.com.ineed.bean.Avaliacao;
 
-public class TurmaDAO {
+
+
+public class AvaliacaoDAO {
 	
-	Connection conn = null;
+Connection conn = null;
 	
-	public TurmaDAO(){
+	public AvaliacaoDAO(){
 		try{
 		conn = ConnectionFactory.getConnection();
 		}
@@ -24,15 +25,16 @@ public class TurmaDAO {
 		
 	}
 
-	public void insert(Turma t){
+	public void insert(Avaliacao av){
 
-		String sql = "INSERT INTO turma (descricao, id) VALUES (?,?)";
+		String sql = "INSERT INTO avaliacao (descricao, id, peso) VALUES (?,?,?)";
 		
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, t.getDescricao());
-			stmt.setInt(2, t.getId());
+			stmt.setString(1, av.getDescricao());
+			stmt.setInt(2, av.getId());
+			stmt.setFloat(3, av.getPeso());
 			stmt.executeUpdate();
 
 		}
@@ -42,13 +44,14 @@ public class TurmaDAO {
 	}
 	
 	
-	public void update(Turma t){
-		String sql = "UPDATE turma SET descricao = ?, id = ? WHERE id = ?";
+	public void update(Avaliacao av){
+		String sql = "UPDATE avaliacao SET descricao = ?, id = ?, peso = ? WHERE id = ?";
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, t.getDescricao());
-			stmt.setInt(2, t.getId());
+			stmt.setString(1, av.getDescricao());
+			stmt.setInt(2, av.getId());
+			stmt.setFloat(3, av.getPeso());
 			stmt.executeUpdate();
 		}
 		catch(SQLException ex){ 
@@ -58,7 +61,7 @@ public class TurmaDAO {
 	
 	public void delete(Integer id){
 
-		String sql = "DELETE FROM materia WHERE id = ?";
+		String sql = "DELETE FROM avaliacao WHERE id = ?";
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -69,35 +72,34 @@ public class TurmaDAO {
 		}
 	}
 	
-	public List<Turma> getAll(){
+	public List<Avaliacao> getAll(){
 
-		String sql = "SELECT id, descricao  FROM turma";
-		List<Turma> turmas = null;
+		String sql = "SELECT id, descricao, peso FROM avaliacao";
+		List<Avaliacao> avaliacoes = null;
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			turmas = new ArrayList<Turma>();
+			avaliacoes = new ArrayList<Avaliacao>();
 			
 			while(rs.next()){
-				Turma t = new Turma(rs.getInt("id"),rs.getString("descricao"));
-				t.setId(rs.getInt("id"));
-				t.setDescricao(rs.getString("descricao"));
-				turmas.add(t);
+				Avaliacao av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"));
+				av.setPeso(rs.getFloat("peso"));
+				avaliacoes.add(av);
 			}
 		}
 		catch(SQLException ex){ 
 			ex.printStackTrace();
 		}
 		
-		return turmas;
+		return avaliacoes;
 	}
 	
 
 	
-	public Turma get(Integer id){
+	public Avaliacao get(Integer id){
 
-		String sql = "SELECT id, descricao  FROM turma";
-		Turma t = null;
+		String sql = "SELECT id, descricao  peso FROM avaliacao";
+		Avaliacao av = null;
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -105,9 +107,8 @@ public class TurmaDAO {
 			
 			
 			if(rs.next()){
-				t = new Turma(rs.getInt("id"),rs.getString("descricao"));
-				t.setId(rs.getInt("id"));
-				t.setDescricao(rs.getString("descricao"));
+				av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"));
+				av.setPeso(rs.getFloat("peso"));
 			}
 			
 		}
@@ -115,9 +116,11 @@ public class TurmaDAO {
 			ex.printStackTrace();
 		}
 		
-		return t;
+		return av;
 	}
 	
 
 	
 }
+
+

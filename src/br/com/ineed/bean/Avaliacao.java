@@ -6,6 +6,17 @@ public class Avaliacao {
 	private Float peso;
 	
 	
+public Avaliacao(Integer avaliacao_id, String descricao){
+		
+		if(avaliacao_id == 0){
+			this.setId(0);
+			this.setDescricao("");
+		}else{
+			this.setId(avaliacao_id);
+			this.setDescricao(descricao);
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}

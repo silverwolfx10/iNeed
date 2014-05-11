@@ -10,6 +10,16 @@ public class Usuario {
 	private Turma	turma_id;
 	private Integer is_admin;
 	
+public Usuario(Integer usuario_id, String rm){
+		
+		if(usuario_id == 0){
+			this.setId(0);
+			this.setRm("");
+		}else{
+			this.setId(usuario_id);
+			this.setRm(rm);
+		}
+	}
 	
 	
 	public Integer getId() {

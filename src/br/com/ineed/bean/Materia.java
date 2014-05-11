@@ -7,7 +7,16 @@ public class Materia {
 	private String descricao;
 	private Turma turma_id;
 	
-	
+public Materia(Integer materia_id, String descricao){
+		
+		if(materia_id == 0){
+			this.setId(0);
+			this.setDescricao("");
+		}else{
+			this.setId(materia_id);
+			this.setDescricao(descricao);
+		}
+	}
 	
 	public Integer getId() {
 		return id;

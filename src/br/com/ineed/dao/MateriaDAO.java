@@ -79,9 +79,7 @@ public class MateriaDAO {
 			materias = new ArrayList<Materia>();
 			
 			while(rs.next()){
-				Materia m = new Materia();
-				m.setId(rs.getInt("id"));
-				m.setDescricao(rs.getString("descricao"));
+				Materia m = new Materia(rs.getInt("id"),rs.getString("descricao"));
 				m.setTurmaId(new Turma(rs.getInt("tid"),rs.getString("tdescricao")));
 				materias.add(m);
 			}
@@ -106,9 +104,7 @@ public class MateriaDAO {
 			
 			
 			if(rs.next()){
-				m = new Materia();
-				m.setId(rs.getInt("id"));
-				m.setDescricao(rs.getString("descricao"));
+				m = new Materia(rs.getInt("id"),rs.getString("descricao"));
 				m.setTurmaId(new Turma(rs.getInt("tid"),rs.getString("tdescricao")));
 			}
 			
