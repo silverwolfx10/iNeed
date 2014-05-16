@@ -5,6 +5,10 @@ public class Turma {
 	private Integer id;
 	private String descricao;
 	
+	public Turma(){
+			
+	}
+
 	public Turma(Integer turma_id, String descricao){
 		
 		if(turma_id == 0){

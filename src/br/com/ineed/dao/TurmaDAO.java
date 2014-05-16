@@ -26,13 +26,12 @@ public class TurmaDAO {
 
 	public void insert(Turma t){
 
-		String sql = "INSERT INTO turma (descricao, id) VALUES (?,?)";
+		String sql = "INSERT INTO turma (id, descricao) VALUES (NULL, ?)";
 		
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, t.getDescricao());
-			stmt.setInt(2, t.getId());
 			stmt.executeUpdate();
 
 		}
@@ -43,7 +42,7 @@ public class TurmaDAO {
 	
 	
 	public void update(Turma t){
-		String sql = "UPDATE turma SET descricao = ?, id = ? WHERE id = ?";
+		String sql = "UPDATE turma SET descricao = ? WHERE id = ?";
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
@@ -58,7 +57,7 @@ public class TurmaDAO {
 	
 	public void delete(Integer id){
 
-		String sql = "DELETE FROM materia WHERE id = ?";
+		String sql = "DELETE FROM turma WHERE id = ?";
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -71,7 +70,7 @@ public class TurmaDAO {
 	
 	public List<Turma> getAll(){
 
-		String sql = "SELECT id, descricao  FROM turma";
+		String sql = "SELECT id, descricao  FROM turma ORDER BY descricao ASC";
 		List<Turma> turmas = null;
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -96,7 +95,7 @@ public class TurmaDAO {
 	
 	public Turma get(Integer id){
 
-		String sql = "SELECT id, descricao  FROM turma";
+		String sql = "SELECT id, descricao  FROM turma WHERE id = ?";
 		Turma t = null;
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
