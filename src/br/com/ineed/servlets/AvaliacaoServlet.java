@@ -15,12 +15,12 @@ import br.com.ineed.dao.AvaliacaoDAO;
 
 
 @WebServlet("/avaliacao")
-public class AvaliacaoTurmaServlet extends HttpServlet {
+public class AvaliacaoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String pag;
 	private Boolean redirect;
 	
-	public AvaliacaoTurmaServlet() {
+	public AvaliacaoServlet() {
         super();
     }
 	

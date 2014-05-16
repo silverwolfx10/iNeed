@@ -7,7 +7,21 @@ public class Materia {
 	private String descricao;
 	private Turma turma_id;
 	
-public Materia(Integer materia_id, String descricao){
+	public Materia(){
+		
+	}
+	public Materia(Integer materia_id, String descricao, Integer turma_id){
+		if(materia_id == 0){
+			this.setId(0);
+			this.setDescricao("");
+		}else{
+			this.setId(materia_id);
+			this.setDescricao(descricao);
+			this.setTurmaId(new Turma(turma_id, ""));
+		}
+	}
+	
+	public Materia(Integer materia_id, String descricao, Turma turma_id){
 		
 		if(materia_id == 0){
 			this.setId(0);
@@ -15,6 +29,7 @@ public Materia(Integer materia_id, String descricao){
 		}else{
 			this.setId(materia_id);
 			this.setDescricao(descricao);
+			this.setTurmaId(turma_id);
 		}
 	}
 	
@@ -36,7 +51,5 @@ public Materia(Integer materia_id, String descricao){
 	public void setTurmaId(Turma turma_id) {
 		this.turma_id = turma_id;
 	}
-	
-	
 	
 }

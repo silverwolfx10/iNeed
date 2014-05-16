@@ -77,10 +77,10 @@ public class MateriaDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			materias = new ArrayList<Materia>();
-			
+			Turma turma;
 			while(rs.next()){
-				Materia m = new Materia(rs.getInt("id"),rs.getString("descricao"));
-				m.setTurmaId(new Turma(rs.getInt("tid"),rs.getString("tdescricao")));
+				turma = new Turma(rs.getInt("tid"),rs.getString("tdescricao"));
+				Materia m = new Materia(rs.getInt("id"),rs.getString("descricao"), turma);
 				materias.add(m);
 			}
 		}
@@ -102,10 +102,10 @@ public class MateriaDAO {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			
-			
+			Turma turma;
 			if(rs.next()){
-				m = new Materia(rs.getInt("id"),rs.getString("descricao"));
-				m.setTurmaId(new Turma(rs.getInt("tid"),rs.getString("tdescricao")));
+				turma = new Turma(rs.getInt("tid"),rs.getString("tdescricao"));
+				m = new Materia(rs.getInt("id"),rs.getString("descricao"), turma);
 			}
 			
 		}
