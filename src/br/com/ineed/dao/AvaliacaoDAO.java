@@ -27,14 +27,13 @@ Connection conn = null;
 
 	public void insert(Avaliacao av){
 
-		String sql = "INSERT INTO avaliacao (descricao, id, peso) VALUES (?,?,?)";
+		String sql = "INSERT INTO avaliacao (id, descricao, peso) VALUES (NULL,?,?)";
 		
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, av.getDescricao());
-			stmt.setInt(2, av.getId());
-			stmt.setFloat(3, av.getPeso());
+			stmt.setFloat(2, av.getPeso());
 			stmt.executeUpdate();
 
 		}
@@ -45,13 +44,13 @@ Connection conn = null;
 	
 	
 	public void update(Avaliacao av){
-		String sql = "UPDATE avaliacao SET descricao = ?, id = ?, peso = ? WHERE id = ?";
+		String sql = "UPDATE avaliacao SET descricao = ?, peso = ? WHERE id = ?";
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, av.getDescricao());
-			stmt.setInt(2, av.getId());
-			stmt.setFloat(3, av.getPeso());
+			stmt.setFloat(2, av.getPeso());
+			stmt.setInt(3, av.getId());
 			stmt.executeUpdate();
 		}
 		catch(SQLException ex){ 
@@ -82,8 +81,7 @@ Connection conn = null;
 			avaliacoes = new ArrayList<Avaliacao>();
 			
 			while(rs.next()){
-				Avaliacao av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"));
-				av.setPeso(rs.getFloat("peso"));
+				Avaliacao av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"), rs.getFloat("peso"));
 				avaliacoes.add(av);
 			}
 		}
@@ -98,7 +96,7 @@ Connection conn = null;
 	
 	public Avaliacao get(Integer id){
 
-		String sql = "SELECT id, descricao  peso FROM avaliacao";
+		String sql = "SELECT id, descricao, peso FROM avaliacao WHERE id = ?";
 		Avaliacao av = null;
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -107,8 +105,7 @@ Connection conn = null;
 			
 			
 			if(rs.next()){
-				av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"));
-				av.setPeso(rs.getFloat("peso"));
+				av = new Avaliacao(rs.getInt("id"),rs.getString("descricao"), rs.getFloat("peso"));
 			}
 			
 		}

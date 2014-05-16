@@ -83,6 +83,7 @@ h1{
 		<ul>
 			<li><a href="turmas">TURMAS</a></li>
 			<li><a href="materias">MATERIAS</a></li>
+			<li><a href="avaliacao">TIPO DE AVALIAÇÃO</a></li>
 			<li><a href="usuarios">USUÁRIOS</a></li>
 		</ul>
 	</div>

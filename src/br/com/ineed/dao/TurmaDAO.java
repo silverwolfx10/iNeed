@@ -91,8 +91,6 @@ public class TurmaDAO {
 		return turmas;
 	}
 	
-
-	
 	public Turma get(Integer id){
 
 		String sql = "SELECT id, descricao  FROM turma WHERE id = ?";

@@ -5,15 +5,20 @@ public class Avaliacao {
 	private String descricao;
 	private Float peso;
 	
+	public Avaliacao(){
+	}
 	
-public Avaliacao(Integer avaliacao_id, String descricao){
+	public Avaliacao(Integer avaliacao_id, String descricao, Float Peso){
 		
 		if(avaliacao_id == 0){
 			this.setId(0);
 			this.setDescricao("");
+			this.setPeso((float) 0);
 		}else{
 			this.setId(avaliacao_id);
 			this.setDescricao(descricao);
+			this.setPeso(Peso);
+			
 		}
 	}
 	

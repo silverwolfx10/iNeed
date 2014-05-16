@@ -17,7 +17,6 @@ import br.com.ineed.bean.Nota;
 import br.com.ineed.bean.Usuario;
 import br.com.ineed.factory.ConnectionFactory;
 public class NotaDAO {
-	
 
 		Connection conn = null;
 		
@@ -82,7 +81,7 @@ public class NotaDAO {
 		
 		public List<Nota> getAll(){
 
-			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao, m.id as materia_id, m.descricao as materia_desc, "
+			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao,av.peso as avpeso, m.id as materia_id, m.descricao as materia_desc, "
 					+ "u.id as usuario_id, u.rm as usuario_rm"
 					+ " FROM nota"
 					+ " n LEFT JOIN avaliacao ON av.id = n.avaliacao_id "
@@ -100,7 +99,7 @@ public class NotaDAO {
 					n.setId(rs.getInt("id"));
 					n.setNota(rs.getFloat("nota"));
 					n.setSemestre(rs.getInt("semestre"));
-					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao")));
+					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao"), rs.getFloat("avpeso")));
 					n.setMateriaId(new Materia(rs.getInt("materia_id"),rs.getString("materia_desc")));
 					n.setUsuarioId(new Usuario(rs.getInt("usuario_id"),rs.getString("usuario_rm")));					
 					notas.add(n);
@@ -117,7 +116,7 @@ public class NotaDAO {
 		
 		public Nota get(Integer id){
 
-			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao, m.id as materia_id, m.descricao as materia_desc, "
+			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao, av.peso as avpeso, m.id as materia_id, m.descricao as materia_desc, "
 					+ "u.id as usuario_id, u.rm as usuario_rm"
 					+ " FROM nota"
 					+ " n LEFT JOIN avaliacao ON av.id = n.avaliacao_id "
@@ -136,7 +135,7 @@ public class NotaDAO {
 					n.setId(rs.getInt("id"));
 					n.setNota(rs.getFloat("nota"));
 					n.setSemestre(rs.getInt("semestre"));
-					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao")));
+					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao"), rs.getFloat("avpeso")));
 					n.setMateriaId(new Materia(rs.getInt("materia_id"),rs.getString("materia_desc")));
 					n.setUsuarioId(new Usuario(rs.getInt("usuario_id"),rs.getString("usuario_rm")));	
 				}
