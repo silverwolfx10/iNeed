@@ -10,6 +10,11 @@ public class Usuario {
 	private Turma	turma_id;
 	private Integer is_admin;
 	
+public Usuario(){
+	
+
+}
+	
 public Usuario(Integer usuario_id, String rm){
 		
 		if(usuario_id == 0){
