@@ -10,6 +10,26 @@ public class Nota {
 	private Integer semestre;
 	private Usuario usuario_id;
 	
+	public Nota(){
+		
+	}
+	public Nota(Integer id, Materia materia, Avaliacao avaliacao, Float nota, Integer semestre, Usuario usuario){
+		this.id = id;
+		this.materia_id = materia;
+		this.avaliacao_id = avaliacao;
+		this.nota = nota;
+		this.semestre = semestre;
+		this.usuario_id = usuario;
+	}
+	
+	public Nota(Materia materia, Avaliacao avaliacao, Float nota, Integer semestre, Usuario usuario){
+		this.id = id;
+		this.materia_id = materia;
+		this.avaliacao_id = avaliacao;
+		this.nota = nota;
+		this.semestre = semestre;
+		this.usuario_id = usuario;
+	}
 	
 	public Integer getId() {
 		return id;

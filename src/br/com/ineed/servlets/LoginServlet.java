@@ -40,27 +40,30 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 		String password = request.getParameter("password");
 		String mensagem = null;
 		Usuario usuario = null;
+		String action = request.getParameter("action");
+		HttpSession session = request.getSession(true);
 		
-		
-		if(login != null && !login.equals("") && password != null && !password.equals("")){
-			//faz login	
-			UsuarioDAO dao = new UsuarioDAO();
-			usuario = dao.makeLogin(login, password);
-			if(usuario != null){
-			// salva na sessao
-				HttpSession session = request.getSession(true);
-				session.setAttribute("usuarioLogado", usuario);
-				
-				response.sendRedirect("turmas");
-			}else{
-				mensagem = "Login ou senha invalidos";
+		if(action != null && action.equals("logout")){
+			session.removeAttribute("usuarioLogado");
+			response.sendRedirect("login");
+		}else{
+			if(login != null && !login.equals("") && password != null && !password.equals("")){
+				//faz login	
+				UsuarioDAO dao = new UsuarioDAO();
+				usuario = dao.makeLogin(login, password);
+				if(usuario != null){
+					session.setAttribute("usuarioLogado", usuario);
+					response.sendRedirect("turmas");
+				}else{
+					mensagem = "Login ou senha invalidos";
+				}
 			}
-		}
-		
-		if(usuario == null){
-			request.setAttribute("mensagem", mensagem);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
-			dispatcher.forward(request, response);
+			
+			if(usuario == null){
+				request.setAttribute("mensagem", mensagem);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		
 	}

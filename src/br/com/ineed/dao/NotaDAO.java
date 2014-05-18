@@ -112,6 +112,78 @@ public class NotaDAO {
 			return notas;
 		}
 		
+		public List<Nota> getAllByMateriaIdAndUserId(Integer materia_id, Integer usuario_id){
+
+			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao,av.peso as avpeso, m.id as materia_id, m.descricao as materia_desc, "
+					+ "u.id as usuario_id, u.rm as usuario_rm"
+					+ " FROM nota n"
+					+ " LEFT JOIN avaliacao av ON av.id = n.avaliacao_id "
+					+ " LEFT JOIN materia m on m.id = n.materia_id"
+					+ " LEFT JOIN usuario u on u.id = n.usuario_id"	
+					+ " WHERE materia_id = ? AND usuario_id = ?"
+					+ " ORDER BY n.id";
+			List<Nota> notas = null;
+			try{
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, materia_id);
+				stmt.setInt(2, usuario_id);
+				ResultSet rs = stmt.executeQuery();
+				notas = new ArrayList<Nota>();
+				
+				while(rs.next()){
+					Nota n = new Nota();
+					n.setId(rs.getInt("id"));
+					n.setNota(rs.getFloat("nota"));
+					n.setSemestre(rs.getInt("semestre"));
+					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao"), rs.getFloat("avpeso")));
+					n.setMateriaId(new Materia(rs.getInt("materia_id"),rs.getString("materia_desc"), 0));
+					n.setUsuarioId(new Usuario(rs.getInt("usuario_id"),rs.getString("usuario_rm")));					
+					notas.add(n);
+				}
+			}
+			catch(SQLException ex){ 
+				ex.printStackTrace();
+			}
+			
+			return notas;
+		}
+		
+		public List<Nota> getAllByMateriaId(Integer materia_id){
+
+			String sql = "SELECT n.id, n.nota, n.semestre, av.id as avid, av.descricao as avdescricao,av.peso as avpeso, m.id as materia_id, m.descricao as materia_desc, "
+					+ "u.id as usuario_id, u.rm as usuario_rm"
+					+ " FROM nota n"
+					+ " LEFT JOIN avaliacao av ON av.id = n.avaliacao_id "
+					+ " LEFT JOIN materia m on m.id = n.materia_id"
+					+ " LEFT JOIN usuario u on u.id = n.usuario_id"	
+					+ " WHERE materia_id = ?"
+					+ " ORDER BY n.id";
+			List<Nota> notas = null;
+			try{
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, materia_id);
+				ResultSet rs = stmt.executeQuery();
+				notas = new ArrayList<Nota>();
+				
+				while(rs.next()){
+					Nota n = new Nota();
+					n.setId(rs.getInt("id"));
+					n.setNota(rs.getFloat("nota"));
+					n.setSemestre(rs.getInt("semestre"));
+					n.setAvaliacaoId(new Avaliacao(rs.getInt("avid"),rs.getString("avdescricao"), rs.getFloat("avpeso")));
+					n.setMateriaId(new Materia(rs.getInt("materia_id"),rs.getString("materia_desc"), 0));
+					n.setUsuarioId(new Usuario(rs.getInt("usuario_id"),rs.getString("usuario_rm")));					
+					notas.add(n);
+				}
+			}
+			catch(SQLException ex){ 
+				ex.printStackTrace();
+			}
+			
+			return notas;
+		}
+		
+		
 
 		
 		public Nota get(Integer id){

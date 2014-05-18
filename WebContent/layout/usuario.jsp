@@ -28,6 +28,10 @@
 	width:548px;
 }
 
+.campo input[type="radio"]{
+	width:10px;
+}
+
 .submit{
 	width:800px;
 	maring:0 auto;
@@ -81,7 +85,7 @@ h1{
 <body>
 	<div class="menu">
 		<ul>
-			<li><a href="notas">NOTAS</a></li>
+			<li><a href="nota">NOTAS</a></li>
 			<li><a href="boletim">BOLETIM</a></li>
 			<li><a href="ranking">RANKING</a></li>
 		</ul>
