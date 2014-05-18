@@ -5,26 +5,87 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html charset=ISO-8859-1">
-<title>Lista Materias</title>
+<title>${title}</title>
+<style type="text/css">
+.linha{
+	width:800px;
+	height:30px;
+	margin: 0 auto;
+	margin-top:20px;
+}
+.label{
+	float:left;
+	width:100px;
+	height:30px;
+}
+.campo{
+	float:left;
+	width:680px;
+	margin-left:20px;
+	height:30px;
+}
+.campo input{
+	width:548px;
+}
+
+.submit{
+	width:800px;
+	maring:0 auto;
+}
+.submit input{
+	float:right;
+	margin-right: 120px;
+}
+h1{
+	width:800px;
+	height:100px;
+	margin: 0 auto;
+	margin-top:20px;
+}
+.menu{
+	width:800px;
+	margin:0 auto;
+}
+.menu ul{
+	float:left;
+	width:800px;
+	padding-left:0px;
+}
+.menu ul li{
+	list-style:none;
+	float:left;
+	margin-left:10px;
+}
+.menu ul li a{
+	display:block;
+}
+.container{
+	width:800px;
+	margin:0 auto;
+}
+
+.table{
+	width:800px;
+	float:left;
+}
+
+.voltar{
+	
+	width:800px;
+	margin:0 auto;
+	padding-top:50px;
+}
+</style>
 </head>
+
 <body>
-	<table width="800px" align="center">
-		<tr style="font-weight: bold">	
-			<td>Materia</td>
-			<td>Turma</td>
-			<td>Ação</td>
-			<td>Ação</td>
-		</tr>
-		<c:forEach items="${listaMaterias}" var="m">
-			<tr>
-				<td>${m.descricao}</td>
-				<td>${m.turmaId.getDescricao()}</td>
-				<td><a href="alterarContato?id=${c.id}">Alterar</a></td>
-				<td><a href="excluirContato?id=${c.id}">Excluir</a></td>
-			</tr>
-		</c:forEach>
-		<tr><td colspan="5">&nbsp</td></tr>
-		<tr><td colspan="5"><a href="menu.html">Voltar</a></td></tr>
-	</table>
+	<div class="menu">
+		<ul>
+			<li><a href="notas">NOTAS</a></li>
+			<li><a href="boletim">BOLETIM</a></li>
+			<li><a href="ranking">RANKING</a></li>
+		</ul>
+	</div>
+	<jsp:include page="${pagina}" flush="true" />  
 </body>
 </html>
