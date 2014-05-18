@@ -10,27 +10,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import javax.servlet.http.HttpSession;
+
 import br.com.ineed.bean.Usuario;
 import br.com.ineed.dao.TurmaDAO;
 import br.com.ineed.dao.UsuarioDAO;	
 import br.com.ineed.bean.Turma;
 
 @WebServlet("/usuario")
-public class UsuarioServelet extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String pag;
 	private Boolean redirect;
+	private Usuario usuario;
 	
-	public  UsuarioServelet() {
+	public  UsuarioServlet() {
         super();
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		requestHandler(request, response);
+		verifyLogin(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		requestHandler(request, response);
+		verifyLogin(request, response);
+	}
+	
+	protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// salva na sessao
+		HttpSession session = request.getSession(true);
+		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if(this.usuario == null)
+			response.sendRedirect("login");
+		else
+			requestHandler(request, response);
 	}
 	
 protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

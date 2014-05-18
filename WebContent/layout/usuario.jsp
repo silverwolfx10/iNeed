@@ -88,6 +88,9 @@ h1{
 			<li><a href="nota">NOTAS</a></li>
 			<li><a href="boletim">BOLETIM</a></li>
 			<li><a href="ranking">RANKING</a></li>
+			<c:if test="${logadodados.isAdmin == 1}">			
+			<li><a href="turmas">Painel Admin</a></li>
+			</c:if>
 		</ul>
 	</div>
 	<jsp:include page="${pagina}" flush="true" />  

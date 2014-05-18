@@ -85,6 +85,7 @@ h1{
 			<li><a href="materia">MATERIAS</a></li>
 			<li><a href="avaliacao">TIPO DE AVALIAÇÃO</a></li>
 			<li><a href="usuario">USUÁRIOS</a></li>
+			<li><a href="nota">Painel Usuario</a></li>
 		</ul>
 	</div>
 	<jsp:include page="${pagina}" flush="true" />  
