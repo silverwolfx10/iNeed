@@ -82,9 +82,9 @@ h1{
 	<div class="menu">
 		<ul>
 			<li><a href="turmas">TURMAS</a></li>
-			<li><a href="materias">MATERIAS</a></li>
+			<li><a href="materia">MATERIAS</a></li>
 			<li><a href="avaliacao">TIPO DE AVALIAÇÃO</a></li>
-			<li><a href="usuarios">USUÁRIOS</a></li>
+			<li><a href="usuario">USUÁRIOS</a></li>
 		</ul>
 	</div>
 	<jsp:include page="${pagina}" flush="true" />  

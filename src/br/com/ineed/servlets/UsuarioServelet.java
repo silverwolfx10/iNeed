@@ -10,21 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import br.com.ineed.bean.Materia;
+import br.com.ineed.bean.Usuario;
+import br.com.ineed.dao.TurmaDAO;
+import br.com.ineed.dao.UsuarioDAO;	
 import br.com.ineed.bean.Turma;
 
-import br.com.ineed.dao.MateriaDAO;
-import br.com.ineed.dao.TurmaDAO;
-
-
-
-@WebServlet("/materia")
-public class MateriaServlet extends HttpServlet {
+@WebServlet("/usuario")
+public class UsuarioServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String pag;
 	private Boolean redirect;
 	
-	public MateriaServlet() {
+	public  UsuarioServelet() {
         super();
     }
 	
@@ -53,7 +50,6 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 			this.listar(request);
 		}
 		
-		//somente da um dispatch para o jsp se nao precisar redirecionar		
 		if(!this.redirect){
 			request.setAttribute("pagina", this.pag);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("layout/admin.jsp");
@@ -62,87 +58,109 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 	}
 
 	protected void cadastrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		this.pag = "/materia/formulario.jsp";
-		MateriaDAO dao = new MateriaDAO();
+		this.pag = "/usuario/formulario.jsp";
+		UsuarioDAO dao = new UsuarioDAO();
 		
-		String descricao = request.getParameter("descricao");
-		Integer id = null;
+		String rm = request.getParameter("rm");
+		String nome = request.getParameter("nome");
+		String senha = request.getParameter("senha");
+		
 		Integer turma_id = null;
+		Integer is_admin = null;		
+		Integer id = null;
 		ArrayList<Turma> turmas = null;
-		
 		
 		if(request.getParameter("id") != null  && (!request.getParameter("id").equals("")))
 			id = Integer.parseInt(request.getParameter("id"));
 		
 		if(request.getParameter("turma_id") != null  && (!request.getParameter("turma_id").equals("")))
 			turma_id = Integer.parseInt(request.getParameter("turma_id"));
+
+		if(request.getParameter("is_admin") != null  && (!request.getParameter("is_admin").equals("")))
+			is_admin = Integer.parseInt(request.getParameter("is_admin"));
 		
-		if(id != null && descricao != null && turma_id != null){
+		if(id != null && rm != null){
 			//update	
-			Materia mt = new Materia(id, descricao, turma_id);
-			dao.update(mt);
+			Usuario usua = new Usuario();
+			usua.setId(id);
+			usua.setRm(rm);
+			usua.setNome(nome);
+			usua.setSenha(senha);
+			usua.setIsAdmin(is_admin);
+			usua.setTurmaId(new Turma(turma_id,""));
+			
+			dao.update(usua);
 			
 			this.redirect = true;
-			response.sendRedirect("materia");
+			response.sendRedirect("usuario");
 			
-		}else if(descricao != null && turma_id != null){
+		}else if(rm != null){
 			//cadastrar
-			Materia mt = new Materia();
-			Turma turma = new Turma(turma_id, "");
-			mt.setDescricao(descricao);
-			mt.setTurmaId(turma);
+			Usuario usua = new Usuario();
+			usua.setId(id);
+			usua.setRm(rm);
+			usua.setNome(nome);
+			usua.setSenha(senha);
+			usua.setIsAdmin(is_admin);
+			usua.setTurmaId(new Turma(turma_id,""));
 			
-			dao.insert(mt);
+			dao.insert(usua);
 			
 			this.redirect = true;
-			response.sendRedirect("materia");
+			response.sendRedirect("usuario");
 			
+					
 		}else if(id != null){
 			//popula o formulario
-			Materia mt = dao.get(id);
+			Usuario usua = dao.get(id);
 			
 			//dependencia do select no formulario
 			TurmaDAO dao2 = new TurmaDAO();
 			turmas 	= (ArrayList<Turma>)dao2.getAll();
 			
 			this.redirect = false;
+			request.setAttribute("usuario",usua);
+			
 			request.setAttribute("turmas",turmas);
-			request.setAttribute("materia",mt);
-			request.setAttribute("title", "Edicao de Materia");
+			request.setAttribute("title", "Edicao de Usuario");
 		}else{
+			
 			
 			//dependencia do select no formulario
 			TurmaDAO dao2 = new TurmaDAO();
 			turmas 	= (ArrayList<Turma>)dao2.getAll();
 			
 			request.setAttribute("turmas",turmas);
-			request.setAttribute("title", "Cadastro de Materia");
+			request.setAttribute("title", "Cadastro de Usuario");
 		}
+		
 	}
-
+	
+	
 	protected void listar(HttpServletRequest request){
 		//define a pagina que vai ser carregado o conteudo	
-		this.pag = "/materia/lista.jsp";
+		this.pag = "/usuario/lista.jsp";
 		
-		MateriaDAO dao = new MateriaDAO();
-		ArrayList<Materia> materias = null;
+		UsuarioDAO dao = new UsuarioDAO();
+		ArrayList<Usuario> usuarios = null;
 		
 		//consulta no banco todas as turmas
-		materias = (ArrayList<Materia>)dao.getAll();
+		usuarios = (ArrayList<Usuario>)dao.getAll();
 		
 		//seta variavel em escopo de requisicao		
-		request.setAttribute("materias", materias);
-		request.setAttribute("title", "Lista de Materias");
+		request.setAttribute("xxx", usuarios);
+		request.setAttribute("title", "Lista de Usuarios");
 	}
 	
 	protected void excluir(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		MateriaDAO dao = new MateriaDAO();
+		UsuarioDAO dao = new UsuarioDAO();
 		//casting
 		Integer id = Integer.parseInt(request.getParameter("id"));
 		dao.delete(id);
 		
 		this.redirect = true;
-		response.sendRedirect("materia");
+		response.sendRedirect("usuario");
 	}
 
 }
+
