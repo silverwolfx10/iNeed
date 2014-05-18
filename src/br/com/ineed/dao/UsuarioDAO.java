@@ -140,6 +140,38 @@ public class UsuarioDAO {
 			return usua;
 		}
 		
+		public Usuario makeLogin(String login, String password){
+			
+			String sql = "SELECT usua.id, usua.nome, usua.rm, usua.senha,  "
+					+ "t.id as tid,  t.descricao as tdescricao, usua.is_admin "
+					+ "FROM usuario usua"
+					+ " LEFT JOIN turma t ON t.id = usua.turma_id WHERE usua.rm = ? AND usua.senha = ? ORDER BY usua.id";
+			Usuario usua = null;
+			try{
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setString(1, login);
+				stmt.setString(2, password);
+				ResultSet rs = stmt.executeQuery();
+				
+				
+				if(rs.next()){
+					usua = new Usuario();
+					usua.setId(rs.getInt("id"));
+					usua.setNome(rs.getString("nome"));
+					usua.setRm(rs.getString("rm"));
+					usua.setSenha(rs.getString("senha"));
+					usua.setTurmaId(new Turma(rs.getInt("tid"),rs.getString("tdescricao")));
+					usua.setIsAdmin(rs.getInt("is_admin"));	
+				}
+				
+			}
+			catch(SQLException ex){ 
+				ex.printStackTrace();
+			}
+			
+			return usua;
+		}
+		
 
 		
 	}
