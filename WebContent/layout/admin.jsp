@@ -59,6 +59,15 @@ h1{
 .menu ul li a{
 	display:block;
 }
+
+.menulogado{
+	float:left;
+	width:150px;
+	height:30px;
+	margin-right:10px;
+	margin-top: 15px;
+}
+
 .container{
 	width:800px;
 	margin:0 auto;
@@ -87,6 +96,10 @@ h1{
 			<li><a href="usuario">USUÁRIOS</a></li>
 			<li><a href="nota">Painel Usuario</a></li>
 		</ul>
+	</div>
+	
+	<div class="menulogado">Logado Como: ${usuarioLogado.nome}
+	  <a href="login?action=logout">Logout</a>		
 	</div>
 	<jsp:include page="${pagina}" flush="true" />  
 </body>
