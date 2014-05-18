@@ -39,9 +39,9 @@
 				<div class="label">Admin:</div>
 				<div class="campo">
 				<select name="is_admin">
-				<option <c:if test="${usuario.is_admin == 0}"> selected="selected" value="0"</c:if>/> Nao </option>
-                <option <c:if test="${usuario.is_admin == 1}"> selected="selected" value="1"</c:if>/> Sim</option>
-						</select>
+				<option <c:if test="${usuario.isAdmin == 0}"> selected="selected" </c:if> value="0" /> Nao </option>
+                <option <c:if test="${usuario.isAdmin == 1}"> selected="selected" </c:if> value="1" /> Sim</option>
+				</select>
 				</div>
 			</div>
 			
@@ -51,7 +51,7 @@
 				</div>
 			
 			
-			<input type="hidden" name="id" value="${turma.id}" />
+			<input type="hidden" name="id" value="${usuario.id}" />
 		</form>
 	</div>
 	<div class="voltar">

@@ -10,13 +10,24 @@
 		<tr style="font-weight: bold">	
 			<td>Rm</td>
 			<td>Nome</td>
+			<td>Perfil</td>
 			<td>Ação</td>
 			<td>Ação</td>
 		</tr>
-		<c:forEach items="${xxx}" var="u">
+		<c:forEach items="${usuarios}" var="u">
 			<tr>
 				<td>${u.rm}</td>
 				<td>${u.nome}</td>
+				<td>
+					<c:choose>
+					    <c:when test="${u.isAdmin == 1}">
+					       ADMIN
+					    </c:when>
+					    <c:otherwise>
+					       USUÁRIO
+					    </c:otherwise>
+					</c:choose>
+				</td>
 				<td><a href="usuario?action=cadastrar&id=${u.id}">Alterar</a></td>
 				<td><a href="usuario?action=excluir&id=${u.id}">Excluir</a></td>
 			</tr>

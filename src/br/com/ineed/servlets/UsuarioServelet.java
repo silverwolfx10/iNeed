@@ -148,7 +148,7 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 		usuarios = (ArrayList<Usuario>)dao.getAll();
 		
 		//seta variavel em escopo de requisicao		
-		request.setAttribute("xxx", usuarios);
+		request.setAttribute("usuarios", usuarios);
 		request.setAttribute("title", "Lista de Usuarios");
 	}
 	

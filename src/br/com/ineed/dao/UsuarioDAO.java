@@ -82,7 +82,7 @@ public class UsuarioDAO {
 			String sql = "SELECT usua.id, usua.nome, usua.rm, usua.senha,  "
 					+ "t.id as tid,  t.descricao as tdescricao, usua.is_admin "
 					+ "FROM usuario usua"
-					+ "LEFT JOIN turma t ON t.id = usua.turma_id ORDER BY usua.id";
+					+ " LEFT JOIN turma t ON t.id = usua.turma_id ORDER BY usua.id";
 			List<Usuario> usuarios = null;
 			try{
 				PreparedStatement stmt = conn.prepareStatement(sql);
@@ -114,7 +114,7 @@ public class UsuarioDAO {
 			String sql = "SELECT usua.id, usua.nome, usua.rm, usua.senha,  "
 					+ "t.id as tid,  t.descricao as tdescricao, usua.is_admin "
 					+ "FROM usuario usua"
-					+ "LEFT JOIN turma t ON t.id = usua.turma_id ORDER BY usua.id";
+					+ " LEFT JOIN turma t ON t.id = usua.turma_id WHERE usua.id = ?";
 			Usuario usua = null;
 			try{
 				PreparedStatement stmt = conn.prepareStatement(sql);
