@@ -12,7 +12,6 @@ import java.util.List;
 
 import br.com.ineed.bean.Avaliacao;
 import br.com.ineed.bean.Materia;
-import br.com.ineed.bean.Turma;
 import br.com.ineed.bean.Nota;
 import br.com.ineed.bean.Usuario;
 import br.com.ineed.factory.ConnectionFactory;

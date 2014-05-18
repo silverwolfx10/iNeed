@@ -1,5 +1,4 @@
 package br.com.ineed.bean;
-import br.com.ineed.bean.*;
 
 public class Nota {
 	

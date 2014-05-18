@@ -14,7 +14,10 @@ public Usuario(){
 	
 
 }
-	
+
+
+
+
 public Usuario(Integer usuario_id, String rm){
 		
 		if(usuario_id == 0){
