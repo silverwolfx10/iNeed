@@ -53,7 +53,11 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 				usuario = dao.makeLogin(login, password);
 				if(usuario != null){
 					session.setAttribute("usuarioLogado", usuario);
-					response.sendRedirect("turmas");
+					if(usuario.getIsAdmin() == 1){ 
+						response.sendRedirect("turmas");
+					}else{
+						response.sendRedirect("nota");
+					}
 				}else{
 					mensagem = "Login ou senha invalidos";
 				}

@@ -63,6 +63,15 @@ h1{
 .menu ul li a{
 	display:block;
 }
+
+.menulogado{
+	float:left;
+	width:150px;
+	height:30px;
+	margin-right:10px;
+	margin-top: 15px;
+}
+
 .container{
 	width:800px;
 	margin:0 auto;
@@ -88,10 +97,14 @@ h1{
 			<li><a href="nota">NOTAS</a></li>
 			<li><a href="boletim">BOLETIM</a></li>
 			<li><a href="ranking">RANKING</a></li>
-			<c:if test="${logadodados.isAdmin == 1}">			
+			<c:if test="${usuarioLogado.isAdmin == 1}">			
 			<li><a href="turmas">Painel Admin</a></li>
 			</c:if>
 		</ul>
+	</div>
+	
+	<div class="menulogado">Logado Como: ${usuarioLogado.nome}
+	  <a href="login?action=logout">Logout</a>		
 	</div>
 	<jsp:include page="${pagina}" flush="true" />  
 </body>

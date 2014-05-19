@@ -45,7 +45,6 @@ public class NotaServlet extends HttpServlet {
 		// salva na sessao
 		HttpSession session = request.getSession(true);
 		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-		request.setAttribute("logadodados", this.usuario);
 		if(this.usuario == null)
 			response.sendRedirect("login");
 		else
