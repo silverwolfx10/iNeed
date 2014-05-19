@@ -19,35 +19,11 @@ import br.com.ineed.dao.MateriaDAO;
 import br.com.ineed.dao.NotaDAO;
 @WebServlet("/ranking")
 
-public class RankingServlet extends HttpServlet{
-	private static final long serialVersionUID = 1L;
-	private String pag;
-	private Usuario usuario;
-
-
-public  RankingServlet() {
-    super();
-}
-
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	verifyLogin(request, response);
-}
-
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	verifyLogin(request, response);
-}
-
-protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// salva na sessao
-	HttpSession session = request.getSession(true);
-	this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-	if(this.usuario == null)
-		response.sendRedirect("login");
-	else
-		requestHandler(request, response);
-}
-
+public class RankingServlet extends AbstractServlet {
 	
+	public  RankingServlet() {
+	    super();
+	}
 	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		this.pag = "/ranking/ranking.jsp";
@@ -65,8 +41,4 @@ protected void verifyLogin(HttpServletRequest request, HttpServletResponse respo
 		dispatcher.forward(request, response);
 		
 	}
-
-
-
-
 }

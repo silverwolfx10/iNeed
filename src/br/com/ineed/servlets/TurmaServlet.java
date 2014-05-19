@@ -14,38 +14,17 @@ import br.com.ineed.bean.Turma;
 import br.com.ineed.bean.Usuario;
 import br.com.ineed.dao.TurmaDAO;
 
+@WebServlet("/turma")
+public class TurmaServlet extends AbstractServlet{
 
-
-@WebServlet("/turmas")
-public class TurmaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private String pag;
-	private Boolean redirect;
-	private Usuario usuario;
 	
 	public TurmaServlet() {
         super();
+        //requer privilegio de admin     
+        this.servletAdmin = true;
     }
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
-	
-	protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// salva na sessao
-		HttpSession session = request.getSession(true);
-		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-		if(this.usuario == null)
-			response.sendRedirect("login");
-		else
-			requestHandler(request, response);
-	}
-	
-protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String actionParameter = request.getParameter("action");
 		this.redirect = false;
@@ -86,7 +65,7 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 			dao.update(t);
 			
 			this.redirect = true;
-			response.sendRedirect("turmas");
+			response.sendRedirect("turma");
 			
 		}else if(descricao != null){
 			//cadastrar
@@ -96,7 +75,7 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 			dao.insert(t);
 			
 			this.redirect = true;
-			response.sendRedirect("turmas");
+			response.sendRedirect("turma");
 			
 		}else if(id != null){
 			//popula o formulario
@@ -133,7 +112,7 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 		dao.delete(id);
 		
 		this.redirect = true;
-		response.sendRedirect("turmas");
+		response.sendRedirect("turma");
 	}
 
 }

@@ -221,12 +221,12 @@ public class NotaDAO {
 		
 		
 		@SuppressWarnings("null")
-		public List<Nota> getBoletim(ArrayList<Avaliacao> avaliacoes, ArrayList<Materia> materias){
+		public List<Nota> getBoletim(ArrayList<Avaliacao> avaliacoes, ArrayList<Materia> materias, Usuario usuario){
 				
 			//prepara SQL para dar o BIND dentro do for			
 			String sql = "SELECT AVG(nt.nota) nota from avaliacao av " +
 					"LEFT JOIN nota nt ON nt.avaliacao_id = av.id " +
-					"WHERE av.id = ? AND nt.materia_id = ? AND nt.semestre = ? AND usuario_id = 1;";
+					"WHERE av.id = ? AND nt.materia_id = ? AND nt.semestre = ? AND usuario_id = ?;";
 			
 			
 			List<Nota> notas = new ArrayList<Nota>();
@@ -239,6 +239,7 @@ public class NotaDAO {
 			
 			try{
 				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setInt(4, usuario.getId());
 				//percorre todas as materias			
 				for( Materia materia : materias )  
 				{  

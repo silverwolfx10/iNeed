@@ -16,8 +16,6 @@ import br.com.ineed.dao.AvaliacaoDAO;
 import br.com.ineed.dao.MateriaDAO;
 import br.com.ineed.dao.UsuarioDAO;
 
-
-
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 		requestHandler(request, response);
 	}
 	
-protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
@@ -54,7 +52,7 @@ protected void requestHandler(HttpServletRequest request, HttpServletResponse re
 				if(usuario != null){
 					session.setAttribute("usuarioLogado", usuario);
 					if(usuario.getIsAdmin() == 1){ 
-						response.sendRedirect("turmas");
+						response.sendRedirect("turma");
 					}else{
 						response.sendRedirect("nota");
 					}

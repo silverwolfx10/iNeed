@@ -94,13 +94,13 @@ h1{
 
 <body>
 	<div class="menulogado">
-		<span>Logado Como: ${usuarioLogado.nome}</span>
+		<span>Bem vindo: <b>${usuarioLogado.nome}</b></span>
 	 	 <a href="login?action=logout">Logout</a>		
 	</div>
 	<div class="menu">
 	
 		<ul>
-			<li><a href="turmas">TURMAS</a></li>
+			<li><a href="turma">TURMAS</a></li>
 			<li><a href="materia">MATERIAS</a></li>
 			<li><a href="avaliacao">TIPO DE AVALIAÇÃO</a></li>
 			<li><a href="usuario">USUÁRIOS</a></li>

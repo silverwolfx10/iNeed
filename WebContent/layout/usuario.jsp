@@ -98,7 +98,7 @@ h1{
 
 <body>
 	<div class="menulogado">
-		<span>Logado Como: ${usuarioLogado.nome}</span>
+		<span>Bem vindo: <b>${usuarioLogado.nome}</b></span>
 	 	 <a href="login?action=logout">Logout</a>		
 	</div>
 	
@@ -108,7 +108,7 @@ h1{
 			<li><a href="boletim">BOLETIM</a></li>
 			<li><a href="ranking">RANKING</a></li>
 			<c:if test="${usuarioLogado.isAdmin == 1}">			
-			<li class="menuAdmin"><a href="turmas">Painel Admin</a></li>
+			<li class="menuAdmin"><a href="turma">Painel Admin</a></li>
 			</c:if>
 		</ul>
 	</div>

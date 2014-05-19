@@ -20,36 +20,12 @@ import br.com.ineed.dao.MateriaDAO;
 import br.com.ineed.dao.NotaDAO;
 import br.com.ineed.dao.TurmaDAO;
 
-
-
 @WebServlet("/nota")
-public class NotaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private String pag;
-	private Boolean redirect;
-	private Usuario usuario;
+public class NotaServlet extends AbstractServlet {
 	
 	public NotaServlet() {
         super();
     }
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
-	
-	protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// salva na sessao
-		HttpSession session = request.getSession(true);
-		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-		if(this.usuario == null)
-			response.sendRedirect("login");
-		else
-			requestHandler(request, response);
-	}
 	
 	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				

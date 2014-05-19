@@ -18,35 +18,16 @@ import br.com.ineed.dao.UsuarioDAO;
 import br.com.ineed.bean.Turma;
 
 @WebServlet("/usuario")
-public class UsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private String pag;
-	private Boolean redirect;
-	private Usuario usuario;
+public class UsuarioServlet extends AbstractServlet{
 	
 	public  UsuarioServlet() {
         super();
+        //requer privilegio de admin     
+        this.servletAdmin = true;
     }
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		verifyLogin(request, response);
-	}
 	
-	protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// salva na sessao
-		HttpSession session = request.getSession(true);
-		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-		if(this.usuario == null)
-			response.sendRedirect("login");
-		else
-			requestHandler(request, response);
-	}
-	
-protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String actionParameter = request.getParameter("action");
 		this.redirect = false;

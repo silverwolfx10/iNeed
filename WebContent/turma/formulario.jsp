@@ -2,7 +2,7 @@
 
 	<h1>Turma </h1>
 	<div class="container">
-		<form action="turmas?action=cadastrar" method="POST" enctype="application/x-www-form-urlencoded">
+		<form action="turma?action=cadastrar" method="POST" enctype="application/x-www-form-urlencoded">
 		<!--  COPIAR DAQUI-->
 			<div class="linha">
 				<div class="label">Descrição:</div>
@@ -20,7 +20,7 @@
 		</form>
 	</div>
 	<div class="voltar">
-		<a href="turmas">Voltar</a>
+		<a href="turma">Voltar</a>
 	</div>
 
 
