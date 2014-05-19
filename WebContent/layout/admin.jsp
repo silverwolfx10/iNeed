@@ -56,16 +56,21 @@ h1{
 	float:left;
 	margin-left:10px;
 }
+
+.menu ul .menuAdmin{
+	float:right;
+	}
 .menu ul li a{
 	display:block;
 }
 
 .menulogado{
-	float:left;
-	width:150px;
+	width:800px;
 	height:30px;
-	margin-right:10px;
-	margin-top: 15px;
+	margin:0 auto;
+}
+.menulogado a{
+	float:right;
 }
 
 .container{
@@ -88,19 +93,22 @@ h1{
 </head>
 
 <body>
+	<div class="menulogado">
+		<span>Logado Como: ${usuarioLogado.nome}</span>
+	 	 <a href="login?action=logout">Logout</a>		
+	</div>
 	<div class="menu">
+	
 		<ul>
 			<li><a href="turmas">TURMAS</a></li>
 			<li><a href="materia">MATERIAS</a></li>
 			<li><a href="avaliacao">TIPO DE AVALIAÇÃO</a></li>
 			<li><a href="usuario">USUÁRIOS</a></li>
-			<li><a href="nota">Painel Usuario</a></li>
+			<li class="menuAdmin"><a href="nota">Painel Usuario</a></li>
 		</ul>
 	</div>
 	
-	<div class="menulogado">Logado Como: ${usuarioLogado.nome}
-	  <a href="login?action=logout">Logout</a>		
-	</div>
+	
 	<jsp:include page="${pagina}" flush="true" />  
 </body>
 </html>

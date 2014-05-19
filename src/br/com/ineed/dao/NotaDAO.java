@@ -302,11 +302,7 @@ public class NotaDAO {
 						
 					}
 					
-					
-				//	nota que ele precisa tirar						
-//					Nota n = new Nota();
-//					n.setNota(Float.valueOf("500"));
-//					notas.add(n);
+			
 				}
 				
 			}
@@ -317,6 +313,40 @@ public class NotaDAO {
 				
 			return notas;
 		      
+			
+		}
+		
+		
+		public List<Nota> getRanking(){
+			
+			String sql = "SELECT u.id, u.nome, u.rm, t.descricao, CASE WHEN SUM(nt.nota * av.peso) IS NULL THEN 0 ELSE SUM(nt.nota * av.peso) END as pontuacao  FROM usuario u " +
+					"LEFT JOIN turma t ON t.id = u.turma_id " +
+					"LEFT JOIN materia mt ON mt.turma_id = u.turma_id " +
+					"LEFT JOIN nota nt ON nt.materia_id = mt.id AND nt.usuario_id = u.id " +
+					"LEFT JOIN avaliacao av ON av.id = nt.avaliacao_id " +
+					"GROUP BY u.id ORDER BY pontuacao DESC;";
+			
+			List<Nota> notas = null;
+			try{
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery();
+				notas = new ArrayList<Nota>();
+				
+				while(rs.next()){
+					Nota n = new Nota();
+					n.setNota(rs.getFloat("pontuacao"));
+					n.setUsuarioId(new Usuario());	
+					n.getUsuarioId().setNome(rs.getString("u.nome"));
+					n.getUsuarioId().setId(rs.getInt("u.id"));
+					n.getUsuarioId().setRm(rs.getString("u.rm"));
+					notas.add(n);
+				}
+			}
+			catch(SQLException ex){ 
+				ex.printStackTrace();
+			}
+			
+			return notas;
 			
 		}
 		

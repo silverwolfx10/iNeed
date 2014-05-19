@@ -22,7 +22,6 @@ import br.com.ineed.dao.NotaDAO;
 public class RankingServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private String pag;
-	private Boolean redirect;
 	private Usuario usuario;
 
 
@@ -51,38 +50,23 @@ protected void verifyLogin(HttpServletRequest request, HttpServletResponse respo
 	
 	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		this.redirect = false;
-		
-		Integer usuario_id = 0;
-		if(request.getParameter("usuario_id") != null && !request.getParameter("usuario_id").equals("")){
-			usuario_id = Integer.parseInt(request.getParameter("usuario_id"));
-		}
-		
-			this.listar(request, usuario_id);
-
-		
-		//somente da um dispatch para o jsp se nao precisar redirecionar		
-		if(!this.redirect){
-			request.setAttribute("pagina", this.pag);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("layout/usuario.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
-
-	protected void listar(HttpServletRequest request, Integer materia_id){
-		//define a pagina que vai ser carregado o conteudo	
 		this.pag = "/ranking/ranking.jsp";
 		
 		NotaDAO dao = new NotaDAO();	
-		ArrayList<Nota> notas = null;
+		ArrayList<Nota> notas = (ArrayList<Nota>) dao.getRanking();
 		
-				
-			notas = (ArrayList<Nota>)dao.getAllByMateriaIdAndUserId(materia_id, this.usuario.getId());
 				
 		//seta variavel em escopo de requisicao		
 		request.setAttribute("notas", notas);
 		request.setAttribute("title", "Ranking");
+		
+		request.setAttribute("pagina", this.pag);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("layout/usuario.jsp");
+		dispatcher.forward(request, response);
+		
 	}
+
+
 
 
 }
