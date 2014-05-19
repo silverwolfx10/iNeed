@@ -219,6 +219,105 @@ public class NotaDAO {
 			return n;
 		}
 		
-
+		
+		@SuppressWarnings("null")
+		public List<Nota> getBoletim(ArrayList<Avaliacao> avaliacoes, ArrayList<Materia> materias){
+				
+			//prepara SQL para dar o BIND dentro do for			
+			String sql = "SELECT AVG(nt.nota) nota from avaliacao av " +
+					"LEFT JOIN nota nt ON nt.avaliacao_id = av.id " +
+					"WHERE av.id = ? AND nt.materia_id = ? AND nt.semestre = ? AND usuario_id = 1;";
+			
+			
+			List<Nota> notas = new ArrayList<Nota>();
+			
+			Integer contador = 0;
+			Float nac = null;
+			Float am = null;
+			Float ps = null;
+			Float mediaPrimeiro = null;
+			
+			try{
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				//percorre todas as materias			
+				for( Materia materia : materias )  
+				{  
+					
+					stmt.setInt(2, materia.getId());
+					
+					//anda semestre				
+					for(Integer i = 1; i <= 2; i++){
+						stmt.setInt(3, i);
+						
+						contador = 0;
+						//percorre todas os tipos de avaliacoes		
+						for( Avaliacao avaliacao : avaliacoes)  
+						{  
+							
+							
+							stmt.setInt(1, avaliacao.getId());
+							
+								//executa consulta		
+								ResultSet rs = stmt.executeQuery();
+								Nota n = new Nota();
+								if(rs.next() && !(i == 2 && contador == 2)){
+									n.setNota(rs.getFloat("nota"));
+									n.setSemestre(i);
+									n.setAvaliacaoId(new Avaliacao(avaliacao.getId(),avaliacao.getDescricao(), avaliacao.getPeso()));
+									n.setMateriaId(new Materia(materia.getId(),materia.getDescricao(), 0));
+									notas.add(n);
+									
+								}else if(!(i == 2 && contador == 2)){
+									//se nao teve retorno seta um objeto nota com a nota zerada	
+									n.setNota(Float.valueOf("0"));
+									n.setSemestre(i);
+									n.setAvaliacaoId(new Avaliacao(avaliacao.getId(),avaliacao.getDescricao(), avaliacao.getPeso()));
+									n.setMateriaId(new Materia(materia.getId(),materia.getDescricao(), 0));
+									notas.add(n);
+								}
+								
+								if(contador == 0){
+									nac = (n.getNota() * n.getAvaliacaoId().getPeso());
+								}else if(contador == 1){
+									am = (n.getNota() * n.getAvaliacaoId().getPeso());
+								}else if(contador == 2 && !(i == 2 && contador == 2)){
+									ps = (n.getNota() * n.getAvaliacaoId().getPeso());
+								}
+								
+								//se for primeiro semestre, calcula a media								
+								if(i == 1 && contador == 2){
+									Nota media = new Nota();
+									media.setNota((nac + am + ps));
+									notas.add(media);
+									mediaPrimeiro = media.getNota();
+								}else if(i == 2 && contador == 2){
+									//calcula a nota que ele precisa
+									Nota mediaSegundo = new Nota();
+									mediaSegundo.setNota(((12 - (mediaPrimeiro + (am + nac))) * 2 ));
+									notas.add(mediaSegundo);
+								}
+								
+								contador++;
+						} 
+						
+					}
+					
+					
+				//	nota que ele precisa tirar						
+//					Nota n = new Nota();
+//					n.setNota(Float.valueOf("500"));
+//					notas.add(n);
+				}
+				
+			}
+			catch(SQLException ex){ 
+				ex.printStackTrace();
+			}
+		
+				
+			return notas;
+		      
+			
+		}
 		
 	}

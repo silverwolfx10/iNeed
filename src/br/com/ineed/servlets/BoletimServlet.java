@@ -22,14 +22,14 @@ import br.com.ineed.dao.TurmaDAO;
 
 
 
-@WebServlet("/nota")
-public class NotaServlet extends HttpServlet {
+@WebServlet("/boletim")
+public class BoletimServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String pag;
 	private Boolean redirect;
 	private Usuario usuario;
 	
-	public NotaServlet() {
+	public BoletimServlet() {
         super();
     }
 	
@@ -42,10 +42,9 @@ public class NotaServlet extends HttpServlet {
 	}
 	
 	protected void verifyLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// salva na sessao
+		//pega da sessao
 		HttpSession session = request.getSession(true);
 		this.usuario = (Usuario) session.getAttribute("usuarioLogado");
-		request.setAttribute("logadodados", this.usuario);
 		if(this.usuario == null)
 			response.sendRedirect("login");
 		else
@@ -53,33 +52,25 @@ public class NotaServlet extends HttpServlet {
 	}
 	
 	protected void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		String actionParameter = request.getParameter("action");
-		this.redirect = false;
+		this.pag = "/boletim/boletim.jsp";
 		
-		Integer materia_id = 0;
-		if(request.getParameter("materia_id") != null && !request.getParameter("materia_id").equals("")){
-			materia_id = Integer.parseInt(request.getParameter("materia_id"));
-		}
+		NotaDAO dao = new NotaDAO();
+		ArrayList<Nota> boletim = null;
 		
-		if(actionParameter == null){
-			this.listar(request, materia_id);
-		}else if(actionParameter.equals("cadastrar")){
-			this.cadastrar(request, response);
-		}else if(actionParameter.equals("editar")){
-			this.cadastrar(request, response);
-		}else if(actionParameter.equals("excluir")){
-			this.excluir(request, response, materia_id);
-		}else{
-			this.listar(request, materia_id);
-		}
+		AvaliacaoDAO avaliacaoDao = new AvaliacaoDAO();
+		ArrayList<Avaliacao> avaliacoes = (ArrayList<Avaliacao>) avaliacaoDao.getAll();
 		
-		//somente da um dispatch para o jsp se nao precisar redirecionar		
-		if(!this.redirect){
-			request.setAttribute("pagina", this.pag);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("layout/usuario.jsp");
-			dispatcher.forward(request, response);
-		}
+		MateriaDAO materiaDao = new MateriaDAO();
+		ArrayList<Materia> materias = (ArrayList<Materia>) materiaDao.getAllByTurmaId(this.usuario.getTurmaId().getId());
+		
+		boletim = (ArrayList<Nota>)dao.getBoletim(avaliacoes, materias);
+		System.out.print(boletim.size());
+		
+		request.setAttribute("pagina", this.pag);
+		request.setAttribute("boletim", boletim);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("layout/usuario.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 
 	protected void cadastrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -140,7 +131,7 @@ public class NotaServlet extends HttpServlet {
 			
 			//dependencia do select no formulario
 			MateriaDAO materiaDao = new MateriaDAO();
-			materias 	= (ArrayList<Materia>)materiaDao.getAllByTurmaId(this.usuario.getTurmaId().getId());
+			materias 	= (ArrayList<Materia>)materiaDao.getAll();
 			
 			AvaliacaoDAO avaliacaoDao = new AvaliacaoDAO();
 			avaliacoes 	= (ArrayList<Avaliacao>)avaliacaoDao.getAll();
@@ -154,7 +145,7 @@ public class NotaServlet extends HttpServlet {
 			
 			//dependencia do select no formulario
 			MateriaDAO materiaDao = new MateriaDAO();
-			materias 	= (ArrayList<Materia>)materiaDao.getAllByTurmaId(this.usuario.getTurmaId().getId());
+			materias 	= (ArrayList<Materia>)materiaDao.getAll();
 			
 			AvaliacaoDAO avaliacaoDao = new AvaliacaoDAO();
 			avaliacoes 	= (ArrayList<Avaliacao>)avaliacaoDao.getAll();
@@ -173,11 +164,14 @@ public class NotaServlet extends HttpServlet {
 		ArrayList<Nota> notas = null;
 		
 		MateriaDAO materiaDao = new MateriaDAO();	
-		ArrayList<Materia> materias = (ArrayList<Materia>) materiaDao.getAllByTurmaId(this.usuario.getTurmaId().getId());
+		ArrayList<Materia> materias = (ArrayList<Materia>) materiaDao.getAll();
 		
 		//consulta no banco todas as turmas
-		notas = (ArrayList<Nota>)dao.getAllByMateriaIdAndUserId(materia_id, this.usuario.getId());
-		
+		if(this.usuario.getIsAdmin() == 1){
+			notas = (ArrayList<Nota>)dao.getAllByMateriaId(materia_id);
+		}else{
+			notas = (ArrayList<Nota>)dao.getAllByMateriaIdAndUserId(materia_id, this.usuario.getId());
+		}
 		
 		//seta variavel em escopo de requisicao		
 		request.setAttribute("notas", notas);

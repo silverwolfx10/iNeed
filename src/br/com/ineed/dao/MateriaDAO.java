@@ -116,6 +116,29 @@ public class MateriaDAO {
 		return m;
 	}
 	
+	
+	
+	public List<Materia> getAllByTurmaId(Integer turmaId){
 
+		String sql = "SELECT m.id, m.descricao, t.id as tid, t.descricao as tdescricao FROM materia m LEFT JOIN turma t ON t.id = m.turma_id WHERE m.turma_id = ? ORDER BY m.descricao";
+		List<Materia> materias = null;
+		try{
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, turmaId);
+			ResultSet rs = stmt.executeQuery();
+			materias = new ArrayList<Materia>();
+			Turma turma;
+			while(rs.next()){
+				turma = new Turma(rs.getInt("tid"),rs.getString("tdescricao"));
+				Materia m = new Materia(rs.getInt("id"),rs.getString("descricao"), turma);
+				materias.add(m);
+			}
+		}
+		catch(SQLException ex){ 
+			ex.printStackTrace();
+		}
+		
+		return materias;
+	}
 	
 }
