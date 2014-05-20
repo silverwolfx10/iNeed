@@ -27,7 +27,7 @@
 		</tr>
 		<c:forEach items="${notas}" var="nt">
 			<tr>
-				<td><fmt:formatNumber value="${nt.nota}" pattern="####.#"/></td>
+				<td><fmt:formatNumber value="${nt.nota}" pattern="####.##"/></td>
 				<td>${nt.avaliacaoId.descricao}</td>
 				<td><a href="nota?action=cadastrar&materia_id=${materia_id}&id=${nt.id}">Alterar</a></td>
 				<td><a href="nota?action=excluir&materia_id=${materia_id}&id=${nt.id}">Excluir</a></td>

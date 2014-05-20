@@ -320,7 +320,7 @@ public class NotaDAO {
 		
 		public List<Nota> getRanking(){
 			
-			String sql = "SELECT u.id, u.nome, u.rm, t.descricao, CASE WHEN SUM(nt.nota * av.peso) IS NULL THEN 0 ELSE FORMAT(SUM(nt.nota * av.peso), 'N', 'en-us') END as pontuacao  FROM usuario u " +
+			String sql = "SELECT u.id, u.nome, u.rm, t.descricao, CASE WHEN SUM(nt.nota * av.peso) IS NULL THEN 0 ELSE SUM(nt.nota * av.peso) END as pontuacao  FROM usuario u " +
 					"LEFT JOIN turma t ON t.id = u.turma_id " +
 					"LEFT JOIN materia mt ON mt.turma_id = u.turma_id " +
 					"LEFT JOIN nota nt ON nt.materia_id = mt.id AND nt.usuario_id = u.id " +

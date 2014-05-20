@@ -29,7 +29,7 @@
 		     <c:if test="${contador.count == 1 || (contador.count - 1) % 7 == 0}">
 		  		   <td>${nt.materiaId.descricao}</td>
              </c:if>
-		      	<td><fmt:formatNumber value="${nt.nota}" pattern="####.#"/></td>
+		      	<td><fmt:formatNumber value="${nt.nota}" pattern="####.##"/></td>
      	  	 <c:if test="${(contador.count) % 7 == 0}">
               	</tr>
               	<tr>
