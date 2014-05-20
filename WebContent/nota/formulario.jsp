@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div class="linha">
-				<div class="label">Avaliação:</div>
+				<div class="label">AvaliaÃ§Ã£o:</div>
 				<div class="campo">
 					<select name="avaliacao_id">
 						<c:forEach items="${avaliacoes}" var="item">
@@ -37,8 +37,8 @@
 			<div class="linha">
 				<div class="label">Semestre:</div>
 				<div class="campo">
-					<input type="radio" name="semestre" <c:if test="${nota.semestre == 1 || nota == null}"> checked="checked"</c:if> value="1"> 1º
-					<input type="radio" name="semestre" <c:if test="${nota.semestre == 2}"> checked="checked"</c:if> value="2">2º
+					<input type="radio" name="semestre" <c:if test="${nota.semestre == 1 || nota == null}"> checked="checked"</c:if> value="1"> 1ï¿½
+					<input type="radio" name="semestre" <c:if test="${nota.semestre == 2}"> checked="checked"</c:if> value="2">2ï¿½
 				</div>
 			</div>
 		<!-- ATE AQUI -->
@@ -46,7 +46,9 @@
 					<input type="submit" name="enviar" value="Salvar" />
 				</div>
 			
-			
+			<div class="linha" style="text-align:center;">
+				${mensagem}
+			</div>
 			<input type="hidden" name="id" value="${nota.id}" />
 		</form>
 	</div>
