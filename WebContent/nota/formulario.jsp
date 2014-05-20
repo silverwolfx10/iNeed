@@ -9,7 +9,7 @@
 				<div class="campo">
 					<select name="materia_id">
 						<c:forEach items="${materias}" var="item">
-						 	 <option <c:if test="${nota.materiaId.id == item.id}"> selected="selected"</c:if> value="<c:out value="${item.id}"/>">
+						 	 <option <c:if test="${nota.materiaId.id == item.id || materia_id == item.id}"> selected="selected"</c:if> value="<c:out value="${item.id}"/>">
 						 	 	<c:out value="${item.descricao}"/>
 					 	 	</option>
 						</c:forEach>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div class="linha">
-				<div class="label">AvaliaÃ§Ã£o:</div>
+				<div class="label">Avaliação:</div>
 				<div class="campo">
 					<select name="avaliacao_id">
 						<c:forEach items="${avaliacoes}" var="item">
@@ -37,8 +37,8 @@
 			<div class="linha">
 				<div class="label">Semestre:</div>
 				<div class="campo">
-					<input type="radio" name="semestre" <c:if test="${nota.semestre == 1 || nota == null}"> checked="checked"</c:if> value="1"> 1ï¿½
-					<input type="radio" name="semestre" <c:if test="${nota.semestre == 2}"> checked="checked"</c:if> value="2">2ï¿½
+					<input type="radio" name="semestre" <c:if test="${nota.semestre == 1 || nota == null}"> checked="checked"</c:if> value="1"> 1º
+					<input type="radio" name="semestre" <c:if test="${nota.semestre == 2}"> checked="checked"</c:if> value="2">2º
 				</div>
 			</div>
 		<!-- ATE AQUI -->

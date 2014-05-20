@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- <div class="menu">
 	<ul>
 		<li><a href="avaliacao?action=cadastrar">Cadastrar novo Tipo Avaliação</a></li>
@@ -28,7 +29,7 @@
 		     <c:if test="${contador.count == 1 || (contador.count - 1) % 7 == 0}">
 		  		   <td>${nt.materiaId.descricao}</td>
              </c:if>
-		      	<td>${nt.nota}</td>
+		      	<td><fmt:formatNumber value="${nt.nota}" pattern="####.#"/></td>
      	  	 <c:if test="${(contador.count) % 7 == 0}">
               	</tr>
               	<tr>

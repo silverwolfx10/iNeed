@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="menu">
 	<ul>
-		<li><a href="nota?action=cadastrar">Cadastrar Nota</a></li>
+		<li><a href="nota?action=cadastrar&materia_id=${materia_id}">Cadastrar Nota</a></li>
 	</ul>
 </div>
 <div class="container">
@@ -26,7 +27,7 @@
 		</tr>
 		<c:forEach items="${notas}" var="nt">
 			<tr>
-				<td>${nt.nota}</td>
+				<td><fmt:formatNumber value="${nt.nota}" pattern="####.#"/></td>
 				<td>${nt.avaliacaoId.descricao}</td>
 				<td><a href="nota?action=cadastrar&materia_id=${materia_id}&id=${nt.id}">Alterar</a></td>
 				<td><a href="nota?action=excluir&materia_id=${materia_id}&id=${nt.id}">Excluir</a></td>

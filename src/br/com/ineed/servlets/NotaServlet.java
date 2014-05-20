@@ -51,6 +51,7 @@ public class NotaServlet extends AbstractServlet {
 		
 		//somente da um dispatch para o jsp se nao precisar redirecionar		
 		if(!this.redirect){
+			request.setAttribute("materia_id", materia_id);
 			request.setAttribute("pagina", this.pag);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("layout/usuario.jsp");
 			dispatcher.forward(request, response);
@@ -77,7 +78,7 @@ public class NotaServlet extends AbstractServlet {
 				nota = Float.parseFloat(request.getParameter("nota"));
 			} catch (Exception e) {
 				nota = null;
-				mensagem="Nota Inválida!!";
+				mensagem="Nota Invalida!!";
 			}
 		}
 		
