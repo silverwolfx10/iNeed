@@ -66,13 +66,20 @@ public class NotaServlet extends AbstractServlet {
 		Avaliacao avaliacao = null;
 		Integer semestre = null;
 		Integer id = null;
+		String mensagem=null;
 		
 		
 		if(request.getParameter("id") != null  && (!request.getParameter("id").equals("")))
 			id = Integer.parseInt(request.getParameter("id"));
 		
-		if(request.getParameter("nota") != null && !request.getParameter("nota").equals(""))
-			nota = Float.parseFloat(request.getParameter("nota"));
+		if(request.getParameter("nota") != null && !request.getParameter("nota").equals("")){
+			try {
+				nota = Float.parseFloat(request.getParameter("nota"));
+			} catch (Exception e) {
+				nota = null;
+				mensagem="Nota Inválida!!";
+			}
+		}
 		
 		if(request.getParameter("materia_id") != null && !request.getParameter("materia_id").equals("")){
 			materia = new Materia();
@@ -121,6 +128,7 @@ public class NotaServlet extends AbstractServlet {
 			avaliacoes 	= (ArrayList<Avaliacao>)avaliacaoDao.getAll();
 			
 			this.redirect = false;
+			request.setAttribute("mensagem",mensagem);
 			request.setAttribute("materias",materias);
 			request.setAttribute("avaliacoes",avaliacoes);
 			request.setAttribute("nota",nt);
@@ -134,6 +142,7 @@ public class NotaServlet extends AbstractServlet {
 			AvaliacaoDAO avaliacaoDao = new AvaliacaoDAO();
 			avaliacoes 	= (ArrayList<Avaliacao>)avaliacaoDao.getAll();
 			
+			request.setAttribute("mensagem",mensagem);
 			request.setAttribute("materias",materias);
 			request.setAttribute("avaliacoes",avaliacoes);
 			request.setAttribute("title", "Cadastro de Nota");
