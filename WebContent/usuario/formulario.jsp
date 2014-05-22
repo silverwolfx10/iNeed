@@ -7,7 +7,7 @@
 			<div class="linha">
 				<div class="label">RM:</div>
 				<div class="campo">
-					<input type="text" name="rm" value="${usuario.rm}" />
+					<input type="text" name="rm" value="${usuario.rm}" maxlength="5" />
 				</div>
 			</div>
 		<!-- ATE AQUI -->

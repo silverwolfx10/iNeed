@@ -60,7 +60,12 @@ public class AvaliacaoServlet extends AbstractServlet {
 			id = Integer.parseInt(request.getParameter("id"));
 		
 		if(request.getParameter("peso") != null  && (!request.getParameter("peso").equals("")))
-			peso = Float.parseFloat(request.getParameter("peso"));
+			try {
+				peso = Float.parseFloat(request.getParameter("peso"));
+			} catch (Exception e) {
+				peso = null;
+			}
+			
 		
 		if(id != null && descricao != null && peso != null){
 			//update	
